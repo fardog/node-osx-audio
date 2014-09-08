@@ -1,19 +1,19 @@
-# core-audio
+# osx-audio
 
-A library that provides access to Mac OS X Audio functions. Only audio input is provided so far.
+A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
 
 ## Installation
 
 To install the module for use in your projects:
 
 ```bash
-npm install core-audio
+npm install osx-audio
 ```
 
 ## Usage
 
 ```js
-var audio = require('core-audio');
+var audio = require('osx-audio');
 
 var input = new audio.Input();
 ```
