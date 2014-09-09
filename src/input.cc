@@ -24,6 +24,7 @@ using node::Buffer;
 
 struct RecorderState {
 	NanCallback *callback;
+	uv_loop_t *uv_;
 };
 
 NAN_METHOD(Input) {
@@ -32,6 +33,7 @@ NAN_METHOD(Input) {
 	RecorderState state;
 	Local<Function> callbackHandle = args[0].As<Function>();
 	state.callback = new NanCallback(callbackHandle);
+	state.uv_ = uv_default_loop();
 
 	unsigned int i;
 	AudioStreamBasicDescription format;
@@ -71,6 +73,7 @@ void inputCallback(void *custom_data, AudioQueueRef queue, AudioQueueBufferRef b
 	};
 	state->callback->Call(2, argv);
 
+	uv_run(state->uv_, UV_RUN_NOWAIT);
 	AudioQueueEnqueueBuffer(queue, buffer, 0, NULL);
 }
 
