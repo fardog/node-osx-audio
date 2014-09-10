@@ -1,11 +1,11 @@
 {
 	"targets": [ {
-		"target_name": "bindings",
+		"target_name": "audio",
 			"sources": [
-				"src/input.cc"
+				"src/bindings.cc"
 			],
 			"include_dirs": [
-				"<!(node -e \"require('nan')\")",
+				"src",
 				"System/Library/Frameworks/CoreFoundation.framework/Headers",
 				"System/Library/Frameworks/AudioToolbox.framework/Headers",
 				"System/Library/Frameworks/CoreAudio.framework/Headers"
