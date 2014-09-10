@@ -17,7 +17,7 @@
 
 class OSXAudioInput {
 	public:
-		typedef void (*OSXAudioCallback)(std::vector<unsigned char> *message, void *userData);	
+		typedef void (*OSXAudioCallback)(UInt32 size, char *message, void *userData);	
 
 		struct OSXAudioInData {
 			//OSXAudioQueue queue;

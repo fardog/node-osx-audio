@@ -32,7 +32,7 @@ void OSXAudioInput :: openInput(OSXAudioInput::OSXAudioCallback callback, void *
 
 	// Initialize Input
 	printf("initializing audio queue\n");
-	AudioQueueNewInput(&format, inputCallback_, &inputData_, CFRunLoopGetCurrent(), kCFRunLoopCommonModes, 0, &inQueue);
+	AudioQueueNewInput(&format, inputCallback_, &inputData_, NULL, kCFRunLoopCommonModes, 0, &inQueue);
 	for (i = 0; i < NUM_BUFFERS; i++)
 	{
 		printf("allocating buffer\n");
@@ -42,7 +42,6 @@ void OSXAudioInput :: openInput(OSXAudioInput::OSXAudioCallback callback, void *
 	printf("starting audio queue\n");
 	AudioQueueStart(inQueue, NULL);
 	printf("running loop\n");
-	CFRunLoopRun();
 }
 
 void OSXAudioInput :: closeInput() {
@@ -55,12 +54,12 @@ void OSXAudioInput :: inputCallback_(void *custom_data, AudioQueueRef queue,
 	printf("received data\n");
 	OSXAudioInData *data = (OSXAudioInData *) custom_data;
 
-	SAMPLE_TYPE *casted_buffer = (SAMPLE_TYPE *)buffer->mAudioData;
+	//SAMPLE_TYPE *casted_buffer = (SAMPLE_TYPE *)buffer->mAudioData;
 
 	if ( data->usingCallback ) {
 		OSXAudioInput::OSXAudioCallback callback = (OSXAudioInput::OSXAudioCallback) 
 			data->userCallback;
-		callback( (std::vector<unsigned char> *)buffer->mAudioData, data->userData );
+		callback( num_packets, (char *)buffer->mAudioData, data->userData );
 		//callback( (std::vector<unsigned char> *)"omg", data->userData );
 	}
 

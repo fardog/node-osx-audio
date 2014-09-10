@@ -1,5 +1,6 @@
 #include <v8.h>
 #include <node.h>
+#include <node_buffer.h>
 #include <node_object_wrap.h>
 #include <queue>
 #include <uv.h>
@@ -31,7 +32,8 @@ public:
 
     struct AudioMessage
     {
-        std::vector<unsigned char> message;
+        char *message;
+				UInt32 size;
     };
     std::queue<AudioMessage*> message_queue;
 
@@ -88,12 +90,14 @@ public:
 				v8::Local<v8::Value> args[2];
 				args[0] = v8::String::New(symbol_message);
 				//args[1] = v8::Local<v8::Value>::New(v8::Number::New(message->deltaTime));
-				int32_t count = (int32_t)message->message.size();
-				v8::Local<v8::Array> data = v8::Array::New(count);
-				for (int32_t i = 0; i < count; ++i) {
-					data->Set(v8::Number::New(i), v8::Integer::New(message->message[i]));
-				}
-				args[1] = v8::Local<v8::Value>::New(data);
+				//int32_t count = (int32_t)message->message.size();
+				//v8::Local<v8::Array> data = v8::Array::New(count);
+				//for (int32_t i = 0; i < count; ++i) {
+				//	data->Set(v8::Number::New(i), v8::Integer::New(message->message[i]));
+				//}
+				//args[1] = v8::Local<v8::Value>::New(data);
+				//args[1] = node::Buffer::New(const_cast<char*>(message->message), message->size);
+				printf("size was %d\n", message->size);
 				MakeCallback(input->handle_, symbol_emit, 2, args);
 				input->message_queue.pop();
 				delete message;
@@ -102,12 +106,14 @@ public:
 			printf("done emitting message\n");
     }
 
-    static void Callback(std::vector<unsigned char> *message, void *userData)
+    static void Callback(UInt32 size, char *message, void *userData)
     {
 			printf("callback was called\n");
 			AudioInput *input = static_cast<AudioInput*>(userData);
 			AudioMessage* data = new AudioMessage();
-			data->message = *message;
+			data->message = message;
+			data->size = size;
+			printf("size was %d\n", size);
 			uv_mutex_lock(&input->message_mutex);
 			input->message_queue.push(data);
 			uv_mutex_unlock(&input->message_mutex);
