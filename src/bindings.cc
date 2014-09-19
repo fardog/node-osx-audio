@@ -79,7 +79,7 @@ public:
 			while (!input->message_queue.empty())
 			{
 				AudioMessage* message = input->message_queue.front();
-				v8::Local<v8::Value> args[2];
+				v8::Local<v8::Value> args[3];
 				args[0] = v8::String::New(symbol_message);
 				args[1] = v8::Local<v8::Value>::New(v8::Number::New(message->size));
 
