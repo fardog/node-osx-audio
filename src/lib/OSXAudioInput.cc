@@ -31,17 +31,13 @@ void OSXAudioInput :: openInput(OSXAudioInput::OSXAudioCallback callback, void *
 	inputData_.usingCallback = true;
 
 	// Initialize Input
-	printf("initializing audio queue\n");
 	AudioQueueNewInput(&format, inputCallback_, &inputData_, NULL, kCFRunLoopCommonModes, 0, &inQueue);
 	for (i = 0; i < NUM_BUFFERS; i++)
 	{
-		printf("allocating buffer\n");
 		AudioQueueAllocateBuffer(inQueue, BUFFER_SIZE, &inBuffers[i]);
 		AudioQueueEnqueueBuffer(inQueue, inBuffers[i], 0, NULL);
 	}
-	printf("starting audio queue\n");
 	AudioQueueStart(inQueue, NULL);
-	printf("running loop\n");
 }
 
 void OSXAudioInput :: closeInput() {
@@ -51,7 +47,6 @@ void OSXAudioInput :: closeInput() {
 void OSXAudioInput :: inputCallback_(void *custom_data, AudioQueueRef queue,
 		AudioQueueBufferRef buffer, const AudioTimeStamp *start_time, UInt32 num_packets,
 		const AudioStreamPacketDescription *packet_desc) {
-	printf("received data\n");
 	OSXAudioInData *data = (OSXAudioInData *) custom_data;
 
 	if ( data->usingCallback ) {

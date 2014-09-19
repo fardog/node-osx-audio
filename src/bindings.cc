@@ -71,7 +71,6 @@ public:
 
     static void EmitMessage(uv_async_t *w, int status)
     {
-			printf("emitting message\n");
 			assert(status == 0);
 			v8::HandleScope scope;
 			AudioInput *input = static_cast<AudioInput*>(w->data);
@@ -91,28 +90,23 @@ public:
 				v8::Handle<v8::Value> constructorArgs[3] = { slowBuffer->handle_, v8::Integer::New(message->size), v8::Integer::New(0) };
 				args[2] = bufferConstructor->NewInstance(3, constructorArgs);
 				
-				printf("size was %d\n", message->size);
 				MakeCallback(input->handle_, symbol_emit, 3, args);
 				input->message_queue.pop();
 				delete message;
 			}
 			uv_mutex_unlock(&input->message_mutex);
-			printf("done emitting message\n");
     }
 
     static void Callback(UInt32 size, char *message, void *userData)
     {
-			printf("callback was called\n");
 			AudioInput *input = static_cast<AudioInput*>(userData);
 			AudioMessage* data = new AudioMessage();
 			data->message = message;
 			data->size = size;
-			printf("size was %d\n", size);
 			uv_mutex_lock(&input->message_mutex);
 			input->message_queue.push(data);
 			uv_mutex_unlock(&input->message_mutex);
 			uv_async_send(&input->message_async);
-			printf("finished sending message\n");
     }
 
     static v8::Handle<v8::Value> New(const v8::Arguments& args)
