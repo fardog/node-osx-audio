@@ -2,7 +2,7 @@
 
 A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
 
-Audio captured is Signed 16-bit PCM, Stereo, 44100Hz, in Little-endian byte-order. Alternate capture modes will be supported in future versions.
+Audio captured is Signed 16-bit PCM, Stereo, 44100Hz, in little-endian byte-order. Alternate capture modes will be supported in future versions.
 
 ## Installation
 
