@@ -20,11 +20,10 @@ class OSXAudioInput {
 		typedef void (*OSXAudioCallback)(UInt32 size, char *message, void *userData);	
 
 		struct OSXAudioInData {
-			//OSXAudioQueue queue;
-			//OSXAudioMessage message;
 			bool usingCallback;
 			OSXAudioInput::OSXAudioCallback userCallback;
 			void *userData;
+
 			// Default constructor.
 			OSXAudioInData()
 				: usingCallback(false), userCallback(0), userData(0) {}
