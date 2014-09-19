@@ -12,10 +12,16 @@ npm install osx-audio
 
 ## Usage
 
-```js
-var audio = require('osx-audio');
+Pipe input to a writeable file stream:
 
-var input = new audio.Input();
+```js
+var fs = require('fs');
+var lib = require('../');
+
+var input = lib.createReadStream();
+
+var writable = fs.createWriteStream('output.txt');
+input.pipe(writable);
 ```
 
 ### Options
