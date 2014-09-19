@@ -102,7 +102,7 @@ public:
 			AudioInput *input = static_cast<AudioInput*>(userData);
 			AudioMessage* data = new AudioMessage();
 			data->message = message;
-			data->size = size;
+			data->size = size * 4;
 			uv_mutex_lock(&input->message_mutex);
 			input->message_queue.push(data);
 			uv_mutex_unlock(&input->message_mutex);
