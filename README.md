@@ -1,6 +1,8 @@
-# osx-audio
+# osx-audio v0.0.1
 
 A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
+
+Audio captured is Signed 16-bit PCM, Stereo, 44100Hz, in Little-endian byte-order. Alternate capture modes will be supported in future versions.
 
 ## Installation
 
@@ -16,9 +18,9 @@ Pipe input to a writeable file stream:
 
 ```js
 var fs = require('fs');
-var lib = require('../');
+var audio = require('osx-audio');
 
-var input = lib.createReadStream();
+var input = audio.createReadStream();
 
 var writable = fs.createWriteStream('output.txt');
 input.pipe(writable);
@@ -30,11 +32,9 @@ None yet.
 
 ### API
 
-TBD
+#### createReadStream():
 
-#### Notes
-
-None yet.
+Creates a readable stream from the system audio's selected input.
 
 ## Environment Variables
 
@@ -54,7 +54,7 @@ Feel free to send pull requests! I'm not picky, but would like the following:
 ## History
 
 - **v0.0.1**  
-Initial Release
+Initial Release. Only input is supported.
 
 ## The MIT License (MIT)
 
