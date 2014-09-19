@@ -1,6 +1,6 @@
 {
   "name": "osx-audio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Access to Mac OS X Audio I/O as streams. Only input is supported so far.",
   "main": "index.js",
   "scripts": {

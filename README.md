@@ -1,4 +1,4 @@
-# osx-audio v0.0.1
+# osx-audio v0.0.2
 
 A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
 
@@ -52,6 +52,9 @@ Feel free to send pull requests! I'm not picky, but would like the following:
 2. Be sure to point out any changes that break API.
 
 ## History
+
+- **v0.0.2**  
+Fixup stream resume crash.
 
 - **v0.0.1**  
 Initial Release. Only input is supported.
