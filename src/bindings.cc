@@ -32,7 +32,7 @@ public:
 
     struct AudioMessage
     {
-        char *message;
+				char* message;
 				UInt32 size;
     };
     std::queue<AudioMessage*> message_queue;
@@ -89,16 +89,23 @@ public:
 				AudioMessage* message = input->message_queue.front();
 				v8::Local<v8::Value> args[2];
 				args[0] = v8::String::New(symbol_message);
-				//args[1] = v8::Local<v8::Value>::New(v8::Number::New(message->deltaTime));
+				args[1] = v8::Local<v8::Value>::New(v8::Number::New(message->size));
 				//int32_t count = (int32_t)message->message.size();
 				//v8::Local<v8::Array> data = v8::Array::New(count);
 				//for (int32_t i = 0; i < count; ++i) {
 				//	data->Set(v8::Number::New(i), v8::Integer::New(message->message[i]));
 				//}
 				//args[1] = v8::Local<v8::Value>::New(data);
-				//args[1] = node::Buffer::New(const_cast<char*>(message->message), message->size);
+				//args[2] = node::Buffer::New(const_cast<char*>(message->message), message->size);
+				node::Buffer *slowBuffer = node::Buffer::New(message->size);
+				memcpy(node::Buffer::Data(slowBuffer), message->message, message->size);
+				v8::Local<v8::Object> globalObj = v8::Context::GetCurrent()->Global();
+				v8::Local<v8::Function> bufferConstructor = v8::Local<v8::Function>::Cast(globalObj->Get(v8::String::New("Buffer")));
+				v8::Handle<v8::Value> constructorArgs[3] = { slowBuffer->handle_, v8::Integer::New(message->size), v8::Integer::New(0) };
+				args[2] = bufferConstructor->NewInstance(3, constructorArgs);
+				
 				printf("size was %d\n", message->size);
-				MakeCallback(input->handle_, symbol_emit, 2, args);
+				MakeCallback(input->handle_, symbol_emit, 3, args);
 				input->message_queue.pop();
 				delete message;
 			}

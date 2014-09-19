@@ -5,9 +5,9 @@ var input = lib.createReadStream();
 
 console.log("here");
 
-//var writable = fs.createWriteStream('file.txt');
-//input.pipe(writable, { end: false });
-input.pipe(process.stdout, {end: false});
+var writable = fs.createWriteStream('file.txt');
+input.pipe(writable, { end: false });
+//input.pipe(process.stdout, {end: false});
 
 input.on('end', function() {
   console.log("end");
@@ -16,6 +16,6 @@ input.on('end', function() {
 
 setInterval(function() {
   console.log("timeout");
-}, 1000);
+}, 100);
 
 console.log("down here");
