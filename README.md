@@ -42,7 +42,7 @@ None yet.
 
 ## Known Issues
 
-- There's an occasional issue where sound will record choppy, and doesn't seem to be a CPU or I/O issue. Usually, changing the input to another device and then back fixes the issue, but this is a bug that I'm tracking on.
+- There's an occasional issue where sound will record choppy, and doesn't seem to be a CPU or I/O issue. Usually, changing the input to another device and then back fixes the issue, but this is a bug that I'm tracking on. *(Seemingly resolved with v0.1.0)*
 
 ## Contributing
 
