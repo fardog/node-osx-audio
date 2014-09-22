@@ -1,4 +1,4 @@
-# osx-audio v0.0.2
+# osx-audio v0.1.0
 
 A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
 
@@ -20,7 +20,7 @@ Pipe input to a writeable file stream:
 var fs = require('fs');
 var audio = require('osx-audio');
 
-var input = audio.createReadStream();
+var input = new audio.Input();
 
 var writable = fs.createWriteStream('output.txt');
 input.pipe(writable);
@@ -32,7 +32,7 @@ None yet.
 
 ### API
 
-#### createReadStream():
+#### audio.Input()
 
 Creates a readable stream from the system audio's selected input.
 
@@ -52,6 +52,9 @@ Feel free to send pull requests! I'm not picky, but would like the following:
 2. Be sure to point out any changes that break API.
 
 ## History
+
+- **v0.1.0**  
+Reimplement streams and change API.
 
 - **v0.0.2**  
 Fixup stream resume crash.
