@@ -21,6 +21,7 @@ OSXAudioInput :: OSXAudioInput() {
 	format.mFramesPerPacket = 1;
 	format.mBytesPerPacket = format.mBytesPerFrame * format.mFramesPerPacket;
 	format.mReserved = 0;
+	open = false;
 }
 
 void OSXAudioInput :: openInput(OSXAudioInput::OSXAudioCallback callback, void *userData) {
@@ -38,10 +39,19 @@ void OSXAudioInput :: openInput(OSXAudioInput::OSXAudioCallback callback, void *
 		AudioQueueEnqueueBuffer(inQueue, inBuffers[i], 0, NULL);
 	}
 	AudioQueueStart(inQueue, NULL);
+	open = true;
 }
 
 void OSXAudioInput :: closeInput() {
-	// TODO something
+	AudioQueueDispose(inQueue, true);
+	inputData_.usingCallback = false;
+	inputData_.userCallback = 0;
+	inputData_.userData = 0;
+	open = false;
+}
+
+bool OSXAudioInput :: isOpen() {
+	return open;
 }
 
 void OSXAudioInput :: inputCallback_(void *custom_data, AudioQueueRef queue,

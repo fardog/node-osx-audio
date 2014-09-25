@@ -1,4 +1,4 @@
-# osx-audio v0.1.0
+# osx-audio v0.2.0
 
 A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
 
@@ -42,7 +42,7 @@ None yet.
 
 ## Known Issues
 
-- There's an occasional issue where sound will record choppy, and doesn't seem to be a CPU or I/O issue. Usually, changing the input to another device and then back fixes the issue, but this is a bug that I'm tracking on. *(Seemingly resolved with v0.1.0)*
+- Opening, closing, then opening an input will fail to open. Re-instantiating works fine.
 
 ## Contributing
 
@@ -52,6 +52,9 @@ Feel free to send pull requests! I'm not picky, but would like the following:
 2. Be sure to point out any changes that break API.
 
 ## History
+
+- **v0.2.0**  
+Reimplements streams (again) and fixes stuttering bugs. Exposes audio event emitter directly if you wanted to use it.
 
 - **v0.1.0**  
 Reimplement streams and change API.
