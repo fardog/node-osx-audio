@@ -51,6 +51,7 @@ public:
 
 				NODE_SET_PROTOTYPE_METHOD(s_ct, "openInput", OpenInput);
 				NODE_SET_PROTOTYPE_METHOD(s_ct, "closeInput", CloseInput);
+				NODE_SET_PROTOTYPE_METHOD(s_ct, "isOpen", IsOpen);
 
         target->Set(v8::String::NewSymbol("input"),
                     s_ct->GetFunction());
@@ -144,6 +145,15 @@ public:
         uv_close((uv_handle_t*)&input->message_async, NULL);
         return scope.Close(v8::Undefined());
     }
+
+		static v8::Handle<v8::Value> IsOpen(const v8::Arguments& args)
+		{
+			v8::HandleScope scope;
+			AudioInput* input = ObjectWrap::Unwrap<AudioInput>(args.This());
+
+			bool open = input->in->isOpen();
+			return scope.Close(v8::Boolean::New(open));
+		}
 };
 
 v8::Persistent<v8::FunctionTemplate> AudioInput::s_ct;

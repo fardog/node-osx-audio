@@ -33,6 +33,7 @@ class OSXAudioInput {
 
 		void openInput(OSXAudioCallback callback, void *userData = 0);
 		void closeInput();
+		bool isOpen();
 	protected:
 		AudioStreamBasicDescription format;
 		AudioQueueRef inQueue;
@@ -43,6 +44,7 @@ class OSXAudioInput {
 				const AudioStreamPacketDescription *packet_desc);
 
 		OSXAudioInData inputData_;
+		bool open;
 };
 
 #endif
