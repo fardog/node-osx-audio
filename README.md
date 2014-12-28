@@ -22,7 +22,7 @@ var audio = require('osx-audio');
 
 var input = new audio.Input();
 
-var writable = fs.createWriteStream('output.txt');
+var writable = fs.createWriteStream('output.wav');
 input.pipe(writable);
 ```
 
