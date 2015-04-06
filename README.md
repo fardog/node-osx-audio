@@ -1,6 +1,10 @@
-# osx-audio v0.2.0
+# osx-audio v0.2.1
 
 A library that provides access to Mac OS X Audio I/O as streams. Only input is supported so far.
+
+**Note:** osx-audio only supports node version
+[0.10.38](http://nodejs.org/dist/v0.10.38/) or above. This is unlikely to change
+in the near future.
 
 Audio captured is Signed 16-bit PCM, Stereo, 44100Hz, in little-endian byte-order. Alternate capture modes will be supported in future versions.
 

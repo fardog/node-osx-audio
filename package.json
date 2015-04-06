@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "description": "Access to Mac OS X Audio I/O as streams. Only input is supported so far.",
   "main": "index.js",
+  "engines": {
+    "node": ">=0.10.30 <0.12"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node-gyp rebuild"
